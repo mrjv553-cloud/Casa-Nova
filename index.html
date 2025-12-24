@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chá de Casa Nova</title>
+    <title>Chá de Casa Nova - Julia & Ryan</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -14,10 +14,10 @@
         }
         
         :root {
-            --primary-color: #8B4513;
-            --secondary-color: #D2691E;
-            --accent-color: #FFD700;
-            --light-color: #FFF8DC;
+            --primary-color: #9C6B4C;
+            --secondary-color: #D4A574;
+            --accent-color: #E8C39E;
+            --light-color: #FAF3E8;
             --dark-color: #5D4037;
             --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
@@ -126,14 +126,47 @@
             background-size: cover;
             background-position: center;
             background-blend-mode: overlay;
-            background-color: rgba(255, 248, 220, 0.9);
+            background-color: rgba(250, 243, 232, 0.9);
             color: var(--dark-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(156, 107, 76, 0.1), rgba(212, 165, 116, 0.1));
+            z-index: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .couple-names {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            font-family: 'Georgia', serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .couple-names span {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin: 0 10px;
         }
         
         .hero h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            color: var(--dark-color);
+            font-weight: 400;
         }
         
         .hero p {
@@ -303,6 +336,13 @@
             color: var(--primary-color);
         }
         
+        .gift-price {
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin: 10px 0;
+            font-size: 1.1rem;
+        }
+        
         .gift-status {
             display: inline-block;
             padding: 5px 15px;
@@ -313,8 +353,9 @@
         }
         
         .available {
-            background-color: rgba(76, 175, 80, 0.2);
-            color: #2E7D32;
+            background-color: rgba(156, 107, 76, 0.1);
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
         }
         
         .reserved {
@@ -381,9 +422,68 @@
         }
         
         .success {
-            background-color: rgba(76, 175, 80, 0.2);
-            color: #2E7D32;
-            border: 1px solid #4CAF50;
+            background-color: rgba(156, 107, 76, 0.1);
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+        
+        .couple-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            overflow: hidden;
+            border: 5px solid var(--accent-color);
+            box-shadow: var(--shadow);
+        }
+        
+        .couple-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .countdown {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px auto;
+            max-width: 600px;
+            box-shadow: var(--shadow);
+        }
+        
+        .countdown-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+        
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            text-align: center;
+        }
+        
+        .countdown-item {
+            background-color: var(--light-color);
+            border-radius: 10px;
+            padding: 15px;
+            min-width: 80px;
+            box-shadow: var(--shadow);
+        }
+        
+        .countdown-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .countdown-label {
+            font-size: 0.9rem;
+            color: var(--dark-color);
+            margin-top: 5px;
         }
         
         footer {
@@ -456,8 +556,16 @@
                 display: block;
             }
             
-            .hero h2 {
+            .couple-names {
+                font-size: 2.5rem;
+            }
+            
+            .couple-names span {
                 font-size: 2rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
             }
             
             .confirmation-form {
@@ -467,6 +575,20 @@
             .footer-content {
                 flex-direction: column;
                 text-align: center;
+            }
+            
+            .countdown-timer {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .countdown-item {
+                min-width: 70px;
+                padding: 10px;
+            }
+            
+            .countdown-number {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -505,9 +627,42 @@
         <!-- Página Home -->
         <section id="home" class="page active">
             <div class="hero">
-                <h2>Celebre Conosco Esta Nova Jornada!</h2>
-                <p>Estamos muito felizes em compartilhar esse momento especial com você. Venha celebrar conosco o início desta nova fase em nosso lar.</p>
-                <a href="#" class="btn" id="confirmBtn">Confirmar Presença</a>
+                <div class="hero-content">
+                    <div class="couple-photo">
+                        <!-- Placeholder para foto do casal -->
+                        <div style="width:100%; height:100%; background:linear-gradient(135deg, var(--primary-color), var(--secondary-color)); display:flex; align-items:center; justify-content:center; color:white; font-size:3rem;">
+                            J & R
+                        </div>
+                    </div>
+                    
+                    <h1 class="couple-names">Julia <span>&</span> Ryan</h1>
+                    <h2>Convidam você para nosso Chá de Casa Nova</h2>
+                    <p>Estamos começando nossa vida juntos e gostaríamos de compartilhar este momento especial com você. Venha celebrar conosco a construção do nosso novo lar!</p>
+                    
+                    <div class="countdown">
+                        <div class="countdown-title">Faltam</div>
+                        <div class="countdown-timer" id="countdownTimer">
+                            <div class="countdown-item">
+                                <div class="countdown-number" id="days">00</div>
+                                <div class="countdown-label">Dias</div>
+                            </div>
+                            <div class="countdown-item">
+                                <div class="countdown-number" id="hours">00</div>
+                                <div class="countdown-label">Horas</div>
+                            </div>
+                            <div class="countdown-item">
+                                <div class="countdown-number" id="minutes">00</div>
+                                <div class="countdown-label">Minutos</div>
+                            </div>
+                            <div class="countdown-item">
+                                <div class="countdown-number" id="seconds">00</div>
+                                <div class="countdown-label">Segundos</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="btn" id="confirmBtn">Confirmar Presença</a>
+                </div>
             </div>
             
             <h2 class="section-title">Informações do Evento</h2>
@@ -516,28 +671,30 @@
                 <div class="card">
                     <i class="fas fa-calendar-alt"></i>
                     <h3>Data e Hora</h3>
-                    <p>25 de Novembro de 2023</p>
-                    <p>Das 15h às 19h</p>
+                    <p><strong>Dia:</strong> 15 de Dezembro de 2024</p>
+                    <p><strong>Horário:</strong> Das 16h às 21h</p>
                 </div>
                 
                 <div class="card">
                     <i class="fas fa-map-marker-alt"></i>
                     <h3>Local</h3>
-                    <p>Rua das Flores, 123</p>
-                    <p>Jardim Primavera - São Paulo, SP</p>
+                    <p><strong>Endereço:</strong> Rua das Acácias, 456</p>
+                    <p>Jardim das Flores - São Paulo, SP</p>
+                    <p><em>Condomínio Vista Verde, Salão de Festas</em></p>
                 </div>
                 
                 <div class="card">
                     <i class="fas fa-info-circle"></i>
                     <h3>Informações Adicionais</h3>
                     <p>Traga sua família e amigos!</p>
-                    <p>Teremos coffee break e muitas surpresas.</p>
+                    <p>Teremos coffee break, doces e muitas surpresas.</p>
+                    <p><strong>Dress code:</strong> Casual elegante</p>
                 </div>
             </div>
             
             <div class="guests-list">
                 <h2 class="section-title">Confirmados</h2>
-                <div class="guest-count">Total de confirmados: <span id="guestCount">12</span></div>
+                <div class="guest-count">Total de confirmados: <span id="guestCount">15</span></div>
                 
                 <div id="guestsContainer">
                     <!-- Lista de convidados será carregada via JavaScript -->
@@ -571,16 +728,17 @@
                     <div class="form-group">
                         <label for="guests">Número de Acompanhantes</label>
                         <input type="number" id="guests" class="form-control" min="0" max="5" value="0">
+                        <small style="color:#666;">Inclua crianças, se houver</small>
                     </div>
                     
                     <div class="form-group">
-                        <label for="message">Mensagem para os noivos (opcional)</label>
-                        <textarea id="message" class="form-control" rows="4"></textarea>
+                        <label for="message">Mensagem para Julia e Ryan (opcional)</label>
+                        <textarea id="message" class="form-control" rows="4" placeholder="Deixe uma mensagem carinhosa para o casal..."></textarea>
                     </div>
                     
                     <div class="form-group checkbox-group">
                         <input type="checkbox" id="confirmPresence" required>
-                        <label for="confirmPresence">Confirmo minha presença no evento</label>
+                        <label for="confirmPresence">Confirmo minha presença no chá de casa nova de Julia e Ryan</label>
                     </div>
                     
                     <button type="submit" class="btn">Enviar Confirmação</button>
@@ -591,10 +749,25 @@
         <!-- Página Lista de Presentes -->
         <section id="gifts" class="page">
             <h2 class="section-title">Lista de Presentes</h2>
-            <p style="text-align: center; margin-bottom: 30px;">Escolha um presente da nossa lista para nos presentear. Você pode reservar o item para evitar duplicidade.</p>
+            <p style="text-align: center; margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                Querido amigo/familiar, sua presença já é o melhor presente! Mas se quiser nos presentear com algo para nossa nova casa, ficaremos muito gratos. 
+                Abaixo estão algumas sugestões que escolhemos com carinho. Você pode reservar um item para evitar duplicidade.
+            </p>
             
             <div class="gift-list" id="giftList">
                 <!-- Lista de presentes será carregada via JavaScript -->
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px; padding: 20px; background-color: var(--light-color); border-radius: 10px;">
+                <h3 style="color: var(--primary-color); margin-bottom: 15px;">Outras formas de presentear</h3>
+                <p>Se preferir, você também pode contribuir com:</p>
+                <p style="margin-top: 10px;">
+                    <strong>Pix:</strong> (11) 98765-4321 (Julia) <br>
+                    <strong>Conta bancária:</strong> Banco XYZ Ag 1234 CC 56789-0 (Ryan)
+                </p>
+                <p style="margin-top: 10px; font-style: italic; color: var(--dark-color);">
+                    O importante é sua presença, mas ficaremos felizes com qualquer gesto!
+                </p>
             </div>
         </section>
     </main>
@@ -603,15 +776,15 @@
         <div class="container footer-content">
             <div class="footer-logo">
                 <i class="fas fa-home"></i>
-                <h3>Chá de Casa Nova</h3>
+                <h3>Chá de Casa Nova - Julia & Ryan</h3>
             </div>
             
             <p>Celebrando o início de um novo lar</p>
             
             <div class="social-icons">
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" title="Instagram do Casal"><i class="fab fa-instagram"></i></a>
+                <a href="#" title="Facebook do Evento"><i class="fab fa-facebook"></i></a>
+                <a href="#" title="WhatsApp para dúvidas"><i class="fab fa-whatsapp"></i></a>
             </div>
         </div>
     </footer>
@@ -628,6 +801,7 @@
             // Inicializar dados
             initializeGuests();
             initializeGifts();
+            startCountdown();
             
             // Navegação
             navLinks.forEach(link => {
@@ -687,7 +861,7 @@
                 addGuest(name, guests);
                 
                 // Mostrar mensagem de sucesso
-                formMessage.textContent = `Obrigado, ${name}! Sua presença foi confirmada com sucesso.`;
+                formMessage.textContent = `Obrigado, ${name}! Sua presença foi confirmada com sucesso. Julia e Ryan ficaram muito felizes!`;
                 formMessage.className = 'form-message success';
                 formMessage.style.display = 'block';
                 
@@ -706,6 +880,42 @@
                 }, 5000);
             });
             
+            // Contador regressivo para o evento
+            function startCountdown() {
+                // Data do evento: 15 de dezembro de 2024, 16:00
+                const eventDate = new Date('December 15, 2024 16:00:00').getTime();
+                
+                function updateCountdown() {
+                    const now = new Date().getTime();
+                    const timeLeft = eventDate - now;
+                    
+                    if (timeLeft < 0) {
+                        // Evento já aconteceu
+                        document.getElementById('days').textContent = '00';
+                        document.getElementById('hours').textContent = '00';
+                        document.getElementById('minutes').textContent = '00';
+                        document.getElementById('seconds').textContent = '00';
+                        return;
+                    }
+                    
+                    // Calcular dias, horas, minutos e segundos
+                    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                    
+                    // Atualizar elementos
+                    document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+                }
+                
+                // Atualizar imediatamente e a cada segundo
+                updateCountdown();
+                setInterval(updateCountdown, 1000);
+            }
+            
             // Inicializar lista de convidados
             function initializeGuests() {
                 const guests = [
@@ -713,14 +923,17 @@
                     { name: "Carlos Santos", status: "confirmed" },
                     { name: "Mariana Oliveira", status: "confirmed" },
                     { name: "João Pereira", status: "confirmed" },
-                    { name: "Fernanda Costa", status: "pending" },
+                    { name: "Fernanda Costa", status: "confirmed" },
                     { name: "Roberto Alves", status: "confirmed" },
                     { name: "Juliana Lima", status: "confirmed" },
-                    { name: "Pedro Souza", status: "pending" },
+                    { name: "Pedro Souza", status: "confirmed" },
                     { name: "Patrícia Rocha", status: "confirmed" },
                     { name: "Ricardo Mendes", status: "confirmed" },
-                    { name: "Beatriz Carvalho", status: "pending" },
-                    { name: "Lucas Ferreira", status: "confirmed" }
+                    { name: "Beatriz Carvalho", status: "confirmed" },
+                    { name: "Lucas Ferreira", status: "confirmed" },
+                    { name: "Sofia Martins", status: "pending" },
+                    { name: "Gabriel Nunes", status: "pending" },
+                    { name: "Isabella Ramos", status: "confirmed" }
                 ];
                 
                 // Salvar no localStorage se não existir
@@ -791,96 +1004,15 @@
             // Inicializar lista de presentes
             function initializeGifts() {
                 const gifts = [
-                    { id: 1, name: "Jogo de Panelas Antiaderente", category: "Cozinha", status: "available" },
-                    { id: 2, name: "Conjunto de Toalhas de Banho", category: "Banheiro", status: "reserved" },
-                    { id: 3, name: "Liquidificador", category: "Eletroportáteis", status: "available" },
-                    { id: 4, name: "Jogo de Cama Queen Size", category: "Quarto", status: "purchased" },
-                    { id: 5, name: "Air Fryer", category: "Eletroportáteis", status: "available" },
-                    { id: 6, name: "Conjunto de Copos e Taças", category: "Cozinha", status: "available" },
-                    { id: 7, name: "Aspirador de Pó Vertical", category: "Limpeza", status: "reserved" },
-                    { id: 8, name: "Jogo de Travessas para Forno", category: "Cozinha", status: "available" },
-                    { id: 9, name: "Ferro de Passar a Vapor", category: "Limpeza", status: "available" },
-                    { id: 10, name: "Panela de Pressão Elétrica", category: "Eletroportáteis", status: "purchased" }
-                ];
-                
-                // Salvar no localStorage se não existir
-                if (!localStorage.getItem('gifts')) {
-                    localStorage.setItem('gifts', JSON.stringify(gifts));
-                }
-                
-                // Carregar presentes
-                loadGifts();
-            }
-            
-            // Carregar lista de presentes
-            function loadGifts() {
-                const giftList = document.getElementById('giftList');
-                const gifts = JSON.parse(localStorage.getItem('gifts'));
-                
-                giftList.innerHTML = '';
-                
-                // Ícones por categoria
-                const categoryIcons = {
-                    "Cozinha": "fa-utensils",
-                    "Banheiro": "fa-bath",
-                    "Eletroportáteis": "fa-plug",
-                    "Quarto": "fa-bed",
-                    "Limpeza": "fa-broom"
-                };
-                
-                // Status em português
-                const statusText = {
-                    "available": "Disponível",
-                    "reserved": "Reservado",
-                    "purchased": "Comprado"
-                };
-                
-                gifts.forEach(gift => {
-                    const giftItem = document.createElement('div');
-                    giftItem.className = 'gift-item';
-                    
-                    giftItem.innerHTML = `
-                        <div class="gift-image">
-                            <i class="fas ${categoryIcons[gift.category]}"></i>
-                        </div>
-                        <div class="gift-details">
-                            <h3 class="gift-name">${gift.name}</h3>
-                            <p><strong>Categoria:</strong> ${gift.category}</p>
-                            <div class="gift-status ${gift.status}">${statusText[gift.status]}</div>
-                            <button class="btn reserve-btn" data-id="${gift.id}" ${gift.status !== 'available' ? 'disabled style="background-color:#ccc;"' : ''}>
-                                ${gift.status === 'available' ? 'Reservar Presente' : 
-                                  gift.status === 'reserved' ? 'Já Reservado' : 'Já Comprado'}
-                            </button>
-                        </div>
-                    `;
-                    
-                    giftList.appendChild(giftItem);
-                });
-                
-                // Adicionar event listeners aos botões
-                document.querySelectorAll('.reserve-btn').forEach(button => {
-                    button.addEventListener('click', function() {
-                        const giftId = parseInt(this.getAttribute('data-id'));
-                        reserveGift(giftId);
-                    });
-                });
-            }
-            
-            // Reservar presente
-            function reserveGift(id) {
-                const gifts = JSON.parse(localStorage.getItem('gifts'));
-                const giftIndex = gifts.findIndex(gift => gift.id === id);
-                
-                if (giftIndex !== -1 && gifts[giftIndex].status === 'available') {
-                    gifts[giftIndex].status = 'reserved';
-                    localStorage.setItem('gifts', JSON.stringify(gifts));
-                    loadGifts();
-                    
-                    // Mostrar alerta
-                    alert(`Presente "${gifts[giftIndex].name}" reservado com sucesso!`);
-                }
-            }
-        });
-    </script>
-</body>
-</html>
+                    { id: 1, name: "Jogo de Panelas Antiaderente 10 peças", category: "Cozinha", price: "R$ 350,00", status: "available" },
+                    { id: 2, name: "Conjunto de Toalhas de Banho Premium", category: "Banheiro", price: "R$ 180,00", status: "reserved" },
+                    { id: 3, name: "Liquidificador 1100W com 12 velocidades", category: "Eletroportáteis", price: "R$ 220,00", status: "available" },
+                    { id: 4, name: "Jogo de Cama Queen Size 300 fios", category: "Quarto", price: "R$ 450,00", status: "purchased" },
+                    { id: 5, name: "Air Fryer 5,5L Digital", category: "Eletroportáteis", price: "R$ 420,00", status: "available" },
+                    { id: 6, name: "Conjunto de Copos e Taças Cristal", category: "Cozinha", price: "R$ 280,00", status: "available" },
+                    { id: 7, name: "Aspirador de Pó Vertical Sem Fio", category: "Limpeza", price: "R$ 380,00", status: "reserved" },
+                    { id: 8, name: "Jogo de Travessas para Forno 5 peças", category: "Cozinha", price: "R$ 190,00", status: "available" },
+                    { id: 9, name: "Ferro de Passar a Vapor 1800W", category: "Limpeza", price: "R$ 150,00", status: "available" },
+                    { id: 10, name: "Panela de Pressão Elétrica 6L", category: "Eletroportáteis", price: "R$ 320,00", status: "purchased" },
+                    { id: 11, name: "Conjunto de Facas Profissionais 8 peças", category: "Cozinha", price: "R$ 270,00", status: "available" },
+                    { id: 12, name: "Jogo de Len
