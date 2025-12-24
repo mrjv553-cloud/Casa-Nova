@@ -195,6 +195,17 @@
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
         
+        .btn-login {
+            background-color: transparent;
+            border: 2px solid white;
+            margin-left: 20px;
+        }
+        
+        .btn-login:hover {
+            background-color: white;
+            color: var(--primary-color);
+        }
+        
         .section-title {
             text-align: center;
             margin-bottom: 40px;
@@ -369,12 +380,12 @@
             text-decoration: line-through;
         }
         
-        .confirmation-form {
+        .login-form, .confirmation-form {
             background-color: white;
             border-radius: 10px;
             padding: 40px;
             box-shadow: var(--shadow);
-            max-width: 600px;
+            max-width: 500px;
             margin: 0 auto;
         }
         
@@ -425,6 +436,12 @@
             background-color: rgba(156, 107, 76, 0.1);
             color: var(--primary-color);
             border: 1px solid var(--primary-color);
+        }
+        
+        .error {
+            background-color: rgba(244, 67, 54, 0.1);
+            color: #d32f2f;
+            border: 1px solid #f44336;
         }
         
         .couple-photo {
@@ -486,6 +503,37 @@
             margin-top: 5px;
         }
         
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-weight: 500;
+        }
+        
+        .user-info i {
+            font-size: 1.2rem;
+        }
+        
+        .user-welcome {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+        
+        .logout-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-decoration: underline;
+        }
+        
+        .logout-btn:hover {
+            color: var(--accent-color);
+        }
+        
         footer {
             background-color: var(--dark-color);
             color: white;
@@ -527,16 +575,82 @@
             color: var(--accent-color);
         }
         
+        /* Modal de Login */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 10px;
+            padding: 40px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            cursor: pointer;
+        }
+        
+        .modal-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+        
+        .login-options {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .login-options p {
+            margin-bottom: 15px;
+            color: #666;
+        }
+        
+        .login-toggle {
+            color: var(--secondary-color);
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+        
         @media (max-width: 768px) {
             .header-container {
                 flex-direction: column;
-                gap: 20px;
+                gap: 15px;
             }
             
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-                gap: 15px;
+            .user-info {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                margin-top: 10px;
             }
             
             .mobile-menu-btn {
@@ -546,14 +660,20 @@
                 right: 20px;
             }
             
-            .mobile-menu {
+            .desktop-menu {
                 display: none;
-                width: 100%;
-                margin-top: 20px;
             }
             
             .mobile-menu.active {
                 display: block;
+                width: 100%;
+                margin-top: 15px;
+            }
+            
+            .mobile-menu ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
             }
             
             .couple-names {
@@ -568,7 +688,7 @@
                 font-size: 1.8rem;
             }
             
-            .confirmation-form {
+            .login-form, .confirmation-form {
                 padding: 25px;
             }
             
@@ -601,10 +721,6 @@
                 <h1>Chá de Casa Nova</h1>
             </div>
             
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-            
             <nav class="desktop-menu">
                 <ul>
                     <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
@@ -613,15 +729,86 @@
                 </ul>
             </nav>
             
-            <nav class="mobile-menu" id="mobileMenu">
-                <ul>
-                    <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
-                    <li><a href="#" class="nav-link" data-page="presence">Confirmar Presença</a></li>
-                    <li><a href="#" class="nav-link" data-page="gifts">Lista de Presentes</a></li>
-                </ul>
-            </nav>
+            <div class="user-info" id="userInfo" style="display: none;">
+                <i class="fas fa-user-circle"></i>
+                <div class="user-welcome" id="userWelcome"></div>
+                <button class="logout-btn" id="logoutBtn">Sair</button>
+            </div>
+            
+            <button class="btn btn-login" id="loginBtn">Login</button>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
+        
+        <nav class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+                <li><a href="#" class="nav-link" data-page="presence">Confirmar Presença</a></li>
+                <li><a href="#" class="nav-link" data-page="gifts">Lista de Presentes</a></li>
+                <li><div class="user-info-mobile" id="userInfoMobile" style="display: none; margin-top: 15px; color: white; text-align: center;">
+                    <div><i class="fas fa-user-circle"></i> <span id="userWelcomeMobile"></span></div>
+                    <button class="logout-btn" id="logoutBtnMobile">Sair</button>
+                </div></li>
+            </ul>
+        </nav>
     </header>
+    
+    <!-- Modal de Login -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <h2 class="modal-title">Acesso ao Sistema</h2>
+            
+            <div id="loginSection">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">E-mail *</label>
+                        <input type="email" id="loginEmail" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loginPhone">Celular *</label>
+                        <input type="tel" id="loginPhone" class="form-control" placeholder="(11) 99999-9999" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loginName">Nome Completo *</label>
+                        <input type="text" id="loginName" class="form-control" required>
+                    </div>
+                    
+                    <button type="submit" class="btn">Confirmar Login</button>
+                </form>
+                
+                <div class="login-options">
+                    <p>Já fez login antes? <button class="login-toggle" id="showReturningUser">Clique aqui</button></p>
+                </div>
+            </div>
+            
+            <div id="returningUserSection" style="display: none;">
+                <form id="returningUserForm">
+                    <div class="form-group">
+                        <label for="returningEmail">E-mail *</label>
+                        <input type="email" id="returningEmail" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="returningPhone">Celular *</label>
+                        <input type="tel" id="returningPhone" class="form-control" placeholder="(11) 99999-9999" required>
+                    </div>
+                    
+                    <button type="submit" class="btn">Acessar Minha Conta</button>
+                </form>
+                
+                <div class="login-options">
+                    <p>É sua primeira vez aqui? <button class="login-toggle" id="showNewUser">Clique aqui</button></p>
+                </div>
+            </div>
+            
+            <div id="loginMessage" class="form-message" style="display: none;"></div>
+        </div>
+    </div>
     
     <main class="container">
         <!-- Página Home -->
@@ -711,29 +898,29 @@
                 
                 <form id="presenceForm">
                     <div class="form-group">
-                        <label for="name">Nome Completo *</label>
-                        <input type="text" id="name" class="form-control" required>
+                        <label for="presenceName">Nome Completo *</label>
+                        <input type="text" id="presenceName" class="form-control" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="email">E-mail</label>
-                        <input type="email" id="email" class="form-control">
+                        <label for="presenceEmail">E-mail</label>
+                        <input type="email" id="presenceEmail" class="form-control">
                     </div>
                     
                     <div class="form-group">
-                        <label for="phone">Telefone *</label>
-                        <input type="tel" id="phone" class="form-control" required>
+                        <label for="presencePhone">Telefone *</label>
+                        <input type="tel" id="presencePhone" class="form-control" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="guests">Número de Acompanhantes</label>
-                        <input type="number" id="guests" class="form-control" min="0" max="5" value="0">
+                        <label for="presenceGuests">Número de Acompanhantes</label>
+                        <input type="number" id="presenceGuests" class="form-control" min="0" max="5" value="0">
                         <small style="color:#666;">Inclua crianças, se houver</small>
                     </div>
                     
                     <div class="form-group">
-                        <label for="message">Mensagem para Julia e Ryan (opcional)</label>
-                        <textarea id="message" class="form-control" rows="4" placeholder="Deixe uma mensagem carinhosa para o casal..."></textarea>
+                        <label for="presenceMessage">Mensagem para Julia e Ryan (opcional)</label>
+                        <textarea id="presenceMessage" class="form-control" rows="4" placeholder="Deixe uma mensagem carinhosa para o casal..."></textarea>
                     </div>
                     
                     <div class="form-group checkbox-group">
@@ -798,6 +985,27 @@
             const mobileMenu = document.getElementById('mobileMenu');
             const confirmBtn = document.getElementById('confirmBtn');
             
+            // Elementos do login
+            const loginBtn = document.getElementById('loginBtn');
+            const loginModal = document.getElementById('loginModal');
+            const modalClose = document.getElementById('modalClose');
+            const loginForm = document.getElementById('loginForm');
+            const returningUserForm = document.getElementById('returningUserForm');
+            const showReturningUser = document.getElementById('showReturningUser');
+            const showNewUser = document.getElementById('showNewUser');
+            const loginSection = document.getElementById('loginSection');
+            const returningUserSection = document.getElementById('returningUserSection');
+            const loginMessage = document.getElementById('loginMessage');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const logoutBtnMobile = document.getElementById('logoutBtnMobile');
+            const userInfo = document.getElementById('userInfo');
+            const userInfoMobile = document.getElementById('userInfoMobile');
+            const userWelcome = document.getElementById('userWelcome');
+            const userWelcomeMobile = document.getElementById('userWelcomeMobile');
+            
+            // Verificar se usuário já está logado
+            checkLoginStatus();
+            
             // Inicializar dados
             initializeGuests();
             initializeGifts();
@@ -830,6 +1038,12 @@
             confirmBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 
+                // Verificar se usuário está logado
+                if (!isUserLoggedIn()) {
+                    showLoginModal();
+                    return;
+                }
+                
                 // Ativar página de confirmação
                 navLinks.forEach(item => item.classList.remove('active'));
                 document.querySelector('[data-page="presence"]').classList.add('active');
@@ -846,16 +1060,22 @@
                 mobileMenu.classList.toggle('active');
             });
             
-            // Formulário de confirmação
+            // Formulário de confirmação de presença
             const presenceForm = document.getElementById('presenceForm');
             const formMessage = document.getElementById('formMessage');
             
             presenceForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
+                // Verificar se usuário está logado
+                if (!isUserLoggedIn()) {
+                    showLoginModal();
+                    return;
+                }
+                
                 // Obter valores do formulário
-                const name = document.getElementById('name').value;
-                const guests = parseInt(document.getElementById('guests').value);
+                const name = document.getElementById('presenceName').value;
+                const guests = parseInt(document.getElementById('presenceGuests').value);
                 
                 // Adicionar convidado à lista
                 addGuest(name, guests);
@@ -871,148 +1091,4 @@
                 // Atualizar contagem de convidados
                 updateGuestCount();
                 
-                // Rolar para o topo da mensagem
-                formMessage.scrollIntoView({ behavior: 'smooth' });
-                
-                // Esconder mensagem após 5 segundos
-                setTimeout(() => {
-                    formMessage.style.display = 'none';
-                }, 5000);
-            });
-            
-            // Contador regressivo para o evento
-            function startCountdown() {
-                // Data do evento: 15 de dezembro de 2024, 16:00
-                const eventDate = new Date('December 15, 2024 16:00:00').getTime();
-                
-                function updateCountdown() {
-                    const now = new Date().getTime();
-                    const timeLeft = eventDate - now;
-                    
-                    if (timeLeft < 0) {
-                        // Evento já aconteceu
-                        document.getElementById('days').textContent = '00';
-                        document.getElementById('hours').textContent = '00';
-                        document.getElementById('minutes').textContent = '00';
-                        document.getElementById('seconds').textContent = '00';
-                        return;
-                    }
-                    
-                    // Calcular dias, horas, minutos e segundos
-                    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-                    
-                    // Atualizar elementos
-                    document.getElementById('days').textContent = days.toString().padStart(2, '0');
-                    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-                    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-                    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-                }
-                
-                // Atualizar imediatamente e a cada segundo
-                updateCountdown();
-                setInterval(updateCountdown, 1000);
-            }
-            
-            // Inicializar lista de convidados
-            function initializeGuests() {
-                const guests = [
-                    { name: "Ana Silva", status: "confirmed" },
-                    { name: "Carlos Santos", status: "confirmed" },
-                    { name: "Mariana Oliveira", status: "confirmed" },
-                    { name: "João Pereira", status: "confirmed" },
-                    { name: "Fernanda Costa", status: "confirmed" },
-                    { name: "Roberto Alves", status: "confirmed" },
-                    { name: "Juliana Lima", status: "confirmed" },
-                    { name: "Pedro Souza", status: "confirmed" },
-                    { name: "Patrícia Rocha", status: "confirmed" },
-                    { name: "Ricardo Mendes", status: "confirmed" },
-                    { name: "Beatriz Carvalho", status: "confirmed" },
-                    { name: "Lucas Ferreira", status: "confirmed" },
-                    { name: "Sofia Martins", status: "pending" },
-                    { name: "Gabriel Nunes", status: "pending" },
-                    { name: "Isabella Ramos", status: "confirmed" }
-                ];
-                
-                // Salvar no localStorage se não existir
-                if (!localStorage.getItem('guests')) {
-                    localStorage.setItem('guests', JSON.stringify(guests));
-                }
-                
-                // Carregar convidados
-                loadGuests();
-            }
-            
-            // Carregar lista de convidados
-            function loadGuests() {
-                const guestsContainer = document.getElementById('guestsContainer');
-                const guests = JSON.parse(localStorage.getItem('guests'));
-                
-                guestsContainer.innerHTML = '';
-                
-                guests.forEach(guest => {
-                    const guestItem = document.createElement('div');
-                    guestItem.className = 'guest-item';
-                    
-                    const guestName = document.createElement('div');
-                    guestName.className = 'guest-name';
-                    guestName.textContent = guest.name;
-                    
-                    const guestStatus = document.createElement('div');
-                    guestStatus.className = `guest-status ${guest.status}`;
-                    guestStatus.textContent = guest.status === 'confirmed' ? 'Confirmado' : 'Pendente';
-                    
-                    guestItem.appendChild(guestName);
-                    guestItem.appendChild(guestStatus);
-                    
-                    guestsContainer.appendChild(guestItem);
-                });
-                
-                // Atualizar contagem
-                updateGuestCount();
-            }
-            
-            // Adicionar convidado
-            function addGuest(name, extraGuests) {
-                const guests = JSON.parse(localStorage.getItem('guests'));
-                
-                // Adicionar convidado principal
-                guests.push({ name: name, status: "confirmed" });
-                
-                // Adicionar acompanhantes
-                for (let i = 0; i < extraGuests; i++) {
-                    guests.push({ name: `Acompanhante de ${name}`, status: "confirmed" });
-                }
-                
-                // Salvar no localStorage
-                localStorage.setItem('guests', JSON.stringify(guests));
-                
-                // Recarregar lista
-                loadGuests();
-            }
-            
-            // Atualizar contagem de convidados
-            function updateGuestCount() {
-                const guests = JSON.parse(localStorage.getItem('guests'));
-                const confirmedGuests = guests.filter(guest => guest.status === 'confirmed').length;
-                
-                document.getElementById('guestCount').textContent = confirmedGuests;
-            }
-            
-            // Inicializar lista de presentes
-            function initializeGifts() {
-                const gifts = [
-                    { id: 1, name: "Jogo de Panelas Antiaderente 10 peças", category: "Cozinha", price: "R$ 350,00", status: "available" },
-                    { id: 2, name: "Conjunto de Toalhas de Banho Premium", category: "Banheiro", price: "R$ 180,00", status: "reserved" },
-                    { id: 3, name: "Liquidificador 1100W com 12 velocidades", category: "Eletroportáteis", price: "R$ 220,00", status: "available" },
-                    { id: 4, name: "Jogo de Cama Queen Size 300 fios", category: "Quarto", price: "R$ 450,00", status: "purchased" },
-                    { id: 5, name: "Air Fryer 5,5L Digital", category: "Eletroportáteis", price: "R$ 420,00", status: "available" },
-                    { id: 6, name: "Conjunto de Copos e Taças Cristal", category: "Cozinha", price: "R$ 280,00", status: "available" },
-                    { id: 7, name: "Aspirador de Pó Vertical Sem Fio", category: "Limpeza", price: "R$ 380,00", status: "reserved" },
-                    { id: 8, name: "Jogo de Travessas para Forno 5 peças", category: "Cozinha", price: "R$ 190,00", status: "available" },
-                    { id: 9, name: "Ferro de Passar a Vapor 1800W", category: "Limpeza", price: "R$ 150,00", status: "available" },
-                    { id: 10, name: "Panela de Pressão Elétrica 6L", category: "Eletroportáteis", price: "R$ 320,00", status: "purchased" },
-                    { id: 11, name: "Conjunto de Facas Profissionais 8 peças", category: "Cozinha", price: "R$ 270,00", status: "available" },
-                    { id: 12, name: "Jogo de Len
+                // Rolar para
